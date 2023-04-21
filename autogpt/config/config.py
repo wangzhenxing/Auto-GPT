@@ -137,7 +137,7 @@ class Config(metaclass=Singleton):
         self.plugins_denylist = []
 
         # 是否使用grpc
-        self.grpc_enable = os.getenv("GRPC_ENABLE", "True") == "True"
+        self.grpc_enable = os.getenv("GRPC_ENABLED", "False") == "True"
         self.grpc_host = os.getenv("GRPC_HOST", "0.0.0.0")
         self.grpc_port = os.getenv("GRPC_PORT", "50051")
 
