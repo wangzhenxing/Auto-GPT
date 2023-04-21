@@ -136,6 +136,12 @@ class Config(metaclass=Singleton):
             self.plugins_allowlist = []
         self.plugins_denylist = []
 
+        # 是否使用grpc
+        self.grpc_enable = os.getenv("GRPC_ENABLE", "True") == "True"
+        self.grpc_host = os.getenv("GRPC_HOST", "0.0.0.0")
+        self.grpc_port = os.getenv("GRPC_PORT", "50051")
+
+
     def get_azure_deployment_id_for_model(self, model: str) -> str:
         """
         Returns the relevant deployment id for the model specified.

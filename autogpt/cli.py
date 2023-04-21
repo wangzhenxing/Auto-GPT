@@ -83,6 +83,7 @@ def main(
     from autogpt.plugins import scan_plugins
     from autogpt.prompts.prompt import construct_main_ai_config
     from autogpt.utils import get_current_git_branch, get_latest_bulletin
+    from autogpt.agent.grpc_server import GrpcServer
 
     if ctx.invoked_subcommand is None:
         cfg = Config()
@@ -127,6 +128,17 @@ def main(
                 )
 
         cfg = Config()
+
+        ## add grpc server here
+        print(cfg.grpc_enable)
+        if cfg.grpc_enable:
+            logger.typewriter_log(
+            f"Using gRPC:", Fore.GREEN, f"{cfg.grpc_host}:{cfg.grpc_port}"
+            )
+            grpc_server = GrpcServer()
+            grpc_server.serve(cfg.grpc_host, cfg.grpc_port)
+            pass
+
         cfg.set_plugins(scan_plugins(cfg, cfg.debug_mode))
         # Create a CommandRegistry instance and scan default folder
         command_registry = CommandRegistry()

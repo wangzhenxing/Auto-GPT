@@ -46,3 +46,7 @@ pytest-benchmark
 pytest-cov
 pytest-integration
 pytest-mock
+
+## gprc
+grpcio
+grpcio-tools
