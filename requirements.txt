@@ -36,6 +36,11 @@ auto-gpt-plugin-template
 # OpenAI and Generic plugins import
 openapi-python-client==0.13.4
 
+
+## gprc
+grpcio
+grpcio-tools
+
 # Items below this point will not be included in the Docker Image
 
 # Testing dependencies
@@ -46,7 +51,3 @@ pytest-benchmark
 pytest-cov
 pytest-integration
 pytest-mock
-
-## gprc
-grpcio
-grpcio-tools
