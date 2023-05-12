@@ -165,7 +165,10 @@ class Message(message_pb2_grpc.AutogptServicer):
                     except Exception as e:
                         logger.error("Error: \n", str(e))
 
-                logger.typewriter_log('test2')
+                ## 返回结果给客户端
+                yield self.create_response(assistant_reply_json, '', user_input, '')
+                logger.typewriter_log('response to client', assistant_reply_json)
+
                 if not cfg.continuous_mode and self.next_action_count == 0:
                 # ### GET USER AUTHORIZATION TO EXECUTE COMMAND ###
                 # Get key press: Prompt the user to press enter to continue or escape
@@ -271,7 +274,7 @@ class Message(message_pb2_grpc.AutogptServicer):
 
                     self.memory.add(memory_to_add)
                     ## 返回结果给客户端
-                    yield self.create_response(assistant_reply_json, result, user_input, '')
+                    yield self.create_response('', result, user_input, '')
 
                     # Check if there's a result from the command append it to the message
                     # history
@@ -296,14 +299,14 @@ class Message(message_pb2_grpc.AutogptServicer):
             return
 
     def create_response(self, assistant_reply_json, result, user_input, next_action) -> message_pb2.AutogptResponse:
-        assistant_thoughts_reasoning = None
-        assistant_thoughts_plan = None
-        assistant_thoughts_speak = None
-        assistant_thoughts_criticism = None
+        assistant_thoughts_reasoning = ''
+        assistant_thoughts_plan = ''
+        assistant_thoughts_speak = ''
+        assistant_thoughts_criticism = ''
         if not isinstance(assistant_reply_json, dict):
             assistant_reply_json = {}
         assistant_thoughts = assistant_reply_json.get("thoughts", {})
-        assistant_thoughts_text = assistant_thoughts.get("text")
+        assistant_thoughts_text = assistant_thoughts.get("text", '')
 
         if assistant_thoughts:
             assistant_thoughts_reasoning = assistant_thoughts.get("reasoning")
