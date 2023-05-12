@@ -167,7 +167,6 @@ class Message(message_pb2_grpc.AutogptServicer):
 
                 ## 返回结果给客户端
                 yield self.create_response(assistant_reply_json, '', user_input, '')
-                logger.typewriter_log('response to client', assistant_reply_json)
 
                 if not cfg.continuous_mode and self.next_action_count == 0:
                 # ### GET USER AUTHORIZATION TO EXECUTE COMMAND ###

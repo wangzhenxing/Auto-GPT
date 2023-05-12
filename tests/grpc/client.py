@@ -90,7 +90,7 @@ def process_chat(executor: ThreadPoolExecutor, channel: grpc.Channel
 
 def run():
     executor = ThreadPoolExecutor()
-    with grpc.insecure_channel("localhost:5051") as channel:
+    with grpc.insecure_channel("localhost:3005") as channel:
         future = executor.submit(process_chat, executor, channel
                                  )
         future.result()
