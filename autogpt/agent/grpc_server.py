@@ -315,9 +315,9 @@ class Message(message_pb2_grpc.AutogptServicer):
 
         response = message_pb2.AutogptResponse()
         response.ai_res.thoughts = assistant_thoughts_text
-        response.ai_res.reasoning = assistant_thoughts_reasoning
-        response.ai_res.plan = assistant_thoughts_plan
-        response.ai_res.criticism = assistant_thoughts_criticism
+        response.ai_res.reasoning = ""
+        response.ai_res.plan = ""
+        response.ai_res.criticism = ""
         response.ai_res.next_action = next_action
         response.ai_res.system_res = result
         return response
