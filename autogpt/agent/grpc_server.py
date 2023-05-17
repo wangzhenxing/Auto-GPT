@@ -235,10 +235,11 @@ class Message(message_pb2_grpc.AutogptServicer):
                         f"COMMAND = {Fore.CYAN}{command_name}{Style.RESET_ALL}"
                         f"  ARGUMENTS = {Fore.CYAN}{arguments}{Style.RESET_ALL}",
                     )
-                    if command_name == 'write_to_file' or command_name == 'append_to_file':
-                        arguments_dict = json.loads(arguments)
-                        text = arguments_dict['text']
-                        yield self.create_response("", text, user_input, '')
+
+                if command_name == 'write_to_file' or command_name == 'append_to_file':
+                    arguments_dict = json.loads(arguments)
+                    text = arguments_dict['text']
+                    yield self.create_response("", text, user_input, '')
 
                 logger.typewriter_log('test3')
                 # Execute command
