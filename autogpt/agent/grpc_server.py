@@ -116,6 +116,8 @@ class Message(message_pb2_grpc.AutogptServicer):
             arguments = None
             user_input = ""
 
+            yield self.create_response('', "results:" + json.dumps(goals), user_input, '')
+
             while True:
                 # Discontinue if continuous limit is reached
                 loop_count += 1
@@ -134,8 +136,7 @@ class Message(message_pb2_grpc.AutogptServicer):
                 )
 
                 ## 返回结果给客户端
-                yield self.create_response('', json.dumps(goals), user_input, '')
-                yield self.create_response('', 'Thinking...', user_input, '')
+                yield self.create_response('', '', user_input, 'Thinking...')
 
                 # Send message to AI, get response
                 with Spinner("Thinking... "):
