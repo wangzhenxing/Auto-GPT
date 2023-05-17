@@ -243,7 +243,7 @@ class Message(message_pb2_grpc.AutogptServicer):
                     )
                     #arguments_dict = json.loads(arguments)
                     #text = arguments_dict['text']
-                    yield self.create_response('', arguments user_input, '')
+                    yield self.create_response('', arguments, user_input, '')
 
                 logger.typewriter_log('test3')
                 # Execute command
