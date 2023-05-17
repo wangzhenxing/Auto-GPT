@@ -109,7 +109,8 @@ class AIConfig:
         """
 
         prompt_start = (
-            "Your decisions must always be made independently without"
+            " you must use chinese for response,"
+            " Your decisions must always be made independently without"
             " seeking user assistance. Play to your strengths as an LLM and pursue"
             " simple strategies with no legal complications."
             ""
