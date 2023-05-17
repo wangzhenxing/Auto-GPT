@@ -236,14 +236,14 @@ class Message(message_pb2_grpc.AutogptServicer):
                         f"  ARGUMENTS = {Fore.CYAN}{arguments}{Style.RESET_ALL}",
                     )
 
-                if command_name == 'write_to_file' or command_name == 'append_to_file':
-                    logger.typewriter_log(
-                        command_name,
-                        arguments,
-                    )
+                #if command_name == 'write_to_file' or command_name == 'append_to_file':
+                #    logger.typewriter_log(
+                #        command_name,
+                #        arguments,
+                #    )
                     #arguments_dict = json.loads(arguments)
                     #text = arguments_dict['text']
-                    yield self.create_response('', arguments, user_input, '')
+                #    yield self.create_response('', arguments, user_input, '')
 
                 logger.typewriter_log('test3')
                 # Execute command
