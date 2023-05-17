@@ -116,8 +116,6 @@ class Message(message_pb2_grpc.AutogptServicer):
             arguments = None
             user_input = ""
 
-            yield self.create_response('', "results:" + json.dumps(goals), user_input, '')
-
             while True:
                 # Discontinue if continuous limit is reached
                 loop_count += 1
