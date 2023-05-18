@@ -116,6 +116,9 @@ class Message(message_pb2_grpc.AutogptServicer):
             arguments = None
             user_input = ""
 
+            ## 返回结果给客户端
+            yield self.create_response('', '', user_input, 'Thinking...')
+
             while True:
                 # Discontinue if continuous limit is reached
                 loop_count += 1
@@ -133,8 +136,6 @@ class Message(message_pb2_grpc.AutogptServicer):
                     "test"
                 )
 
-                ## 返回结果给客户端
-                yield self.create_response('', '', user_input, 'Thinking...')
 
                 # Send message to AI, get response
                 with Spinner("Thinking... "):
@@ -286,8 +287,11 @@ class Message(message_pb2_grpc.AutogptServicer):
 
                     self.memory.add(memory_to_add)
                     ## 返回结果给客户端
-                    if command_name != "analyze_code":
+                    if command_name != "analyze_code" \
+                        and "No such file or directory" not in result:
                         yield self.create_response('', result, user_input, '')
+                        ## 返回结果给客户端
+                        yield self.create_response('', '', user_input, 'Thinking...')
 
                     # Check if there's a result from the command append it to the message
                     # history
