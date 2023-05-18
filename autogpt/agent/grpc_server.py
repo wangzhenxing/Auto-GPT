@@ -299,15 +299,19 @@ class Message(message_pb2_grpc.AutogptServicer):
                             print("arguments:")
                             print(arguments)
                             print(type(arguments))
+                            print(arguments.keys())
+                            print(arguments.values())
+                            print(arguments.get["filename"])
+                            print(arguments.get["text"])
                             print("")
                             try:
                                 logger.typewriter_log(
                                     "filename:",
-                                    arguments["filename"],
+                                    **arguments["filename"],
                                     "text:",
-                                    arguments["text"],
+                                    **arguments["text"],
                                 )
-                                returnResult = arguments["text"]
+                                fileName, returnResult = arguments.keys()
                             except Exception as e:
                                 logger.error("Error: \n", str(e))
                         yield self.create_response('', returnResult, user_input, nextAction)
