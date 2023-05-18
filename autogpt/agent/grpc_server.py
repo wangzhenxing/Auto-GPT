@@ -295,26 +295,12 @@ class Message(message_pb2_grpc.AutogptServicer):
                         returnResult = result
                         if command_name == 'task_complete':
                             nextAction = "task_complete"
-                        if command_name == 'write_to_file':
-                            print("arguments:")
-                            print(arguments)
-                            print(type(arguments))
-                            print(arguments.keys())
-                            print(arguments.values())
-                            print(arguments.get("filename"))
-                            print(arguments.get("text"))
-                            print("")
-                            try:
-                                returnResult = arguments.get("text")
-                                logger.typewriter_log(
-                                    "filename:",
-                                    arguments.get("filename"),
-                                    "text:",
-                                    returnResult,
-                                )
-                            except Exception as e:
-                                logger.error("Error: \n", str(e))
-                        yield self.create_response('', returnResult, user_input, nextAction)
+                            yield self.create_response('', '', user_input, nextAction)
+                        elif command_name == 'write_to_file':
+                            returnResult = arguments.get("text")
+                            yield self.create_response('', '', user_input, returnResult)
+                        else:
+                            yield self.create_response('', result, user_input, "")
                         time.sleep(2)
                         yield self.create_response('', '', user_input, 'Thinking...')
 
