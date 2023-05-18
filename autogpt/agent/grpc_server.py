@@ -293,7 +293,7 @@ class Message(message_pb2_grpc.AutogptServicer):
                             nextAction = "task_complete"
                         if command_name == 'write_to_file':
                             try:
-                                result = arguments.get('text', '')
+                                result = arguments["text"]
                             except Exception as e:
                                 logger.error("Error: \n", str(e))
                         yield self.create_response('', result, user_input, nextAction)
