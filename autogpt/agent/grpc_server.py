@@ -120,9 +120,9 @@ class Message(message_pb2_grpc.AutogptServicer):
             ## 返回结果给客户端
             j = 1
             for goal in goals:
-                yield self.create_response('', '', user_input, ' 您的目标' + str(j) + '：' + goal)
+                yield self.create_response('', '', user_input, '您的目标' + str(j) + '：' + goal)
                 j += 1
-            yield self.create_response('', '', user_input, ' Thinking...')
+            yield self.create_response('', '', user_input, 'Thinking...')
 
             while True:
                 # Discontinue if continuous limit is reached
@@ -307,7 +307,7 @@ class Message(message_pb2_grpc.AutogptServicer):
                             except Exception as e:
                                 logger.error("Error: \n", str(e))
                         yield self.create_response('', result, user_input, nextAction)
-                        yield self.create_response('', '', user_input, ' Thinking...')
+                        yield self.create_response('', '', user_input, 'Thinking...')
 
 
                     # Check if there's a result from the command append it to the message
@@ -349,12 +349,12 @@ class Message(message_pb2_grpc.AutogptServicer):
             assistant_thoughts_speak = assistant_thoughts.get("speak")
 
         response = message_pb2.AutogptResponse()
-        response.ai_res.thoughts = re.sub("use the.*command to ", "",assistant_thoughts_text)
+        response.ai_res.thoughts = " " + re.sub("use the.*command to ", "",assistant_thoughts_text)
         response.ai_res.reasoning = ""
         response.ai_res.plan = ""
         response.ai_res.criticism = ""
-        response.ai_res.next_action = next_action
-        response.ai_res.system_res = result
+        response.ai_res.next_action = " " + next_action
+        response.ai_res.system_res = " " + result
 
         logger.typewriter_log(
                 "return to client: ",
