@@ -14,6 +14,7 @@
 
 from concurrent.futures import ThreadPoolExecutor
 import json
+import re
 import threading
 from typing import Iterable
 from autogpt.commands.command import CommandRegistry
@@ -348,7 +349,7 @@ class Message(message_pb2_grpc.AutogptServicer):
             assistant_thoughts_speak = assistant_thoughts.get("speak")
 
         response = message_pb2.AutogptResponse()
-        response.ai_res.thoughts = assistant_thoughts_text
+        response.ai_res.thoughts = re.sub("use the.*command to ", "",assistant_thoughts_text)
         response.ai_res.reasoning = ""
         response.ai_res.plan = ""
         response.ai_res.criticism = ""
