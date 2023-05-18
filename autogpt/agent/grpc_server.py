@@ -301,10 +301,11 @@ class Message(message_pb2_grpc.AutogptServicer):
                             print(type(arguments))
                             print(arguments.keys())
                             print(arguments.values())
-                            print(arguments.get["filename"])
-                            print(arguments.get["text"])
                             print("")
                             try:
+                                print(arguments.values()[0])
+                                print(arguments.values()[1])
+                                print("")
                                 logger.typewriter_log(
                                     "filename:",
                                     arguments["filename"],
