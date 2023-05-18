@@ -339,12 +339,21 @@ class Message(message_pb2_grpc.AutogptServicer):
             assistant_thoughts_speak = assistant_thoughts.get("speak")
 
         response = message_pb2.AutogptResponse()
-        response.ai_res.thoughts = " " + re.sub("use the.*command to ", "",assistant_thoughts_text)
+        if assistant_thoughts_text:
+            response.ai_res.thoughts = " " + re.sub("use the.*command to ", "",assistant_thoughts_text)
+        else:
+            response.ai_res.thoughts = ""
         response.ai_res.reasoning = ""
         response.ai_res.plan = ""
         response.ai_res.criticism = ""
-        response.ai_res.next_action = " " + next_action
-        response.ai_res.system_res = " " + result
+        if next_action:
+            response.ai_res.next_action = " " + next_action
+        else:
+            response.ai_res.next_action = ""
+        if result:
+            response.ai_res.system_res = " " + result
+        else:
+            response.ai_res.system_res = ""
 
         logger.typewriter_log(
                 "return to client: ",
