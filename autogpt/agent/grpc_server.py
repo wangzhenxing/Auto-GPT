@@ -293,13 +293,18 @@ class Message(message_pb2_grpc.AutogptServicer):
                     ## 返回结果给客户端
                     if command_name != "analyze_code" \
                         and "No such file or directory" not in result:
+                        nextAction = ""
                         if command_name == 'task_complete':
-                            yield self.create_response('', result, user_input, 'task_complete')
-                        else:
-                            yield self.create_response('', result, user_input, '')
-
-                        ## 返回结果给客户端
+                            nextAction = "task_complete"
+                        if command_name == 'write_to_file':
+                            try:
+                                arguments_dict = json.loads(arguments)
+                                result = arguments_dict['text']
+                            except Exception as e:
+                                logger.error("Error: \n", str(e))
+                        yield self.create_response('', result, user_input, nextAction)
                         yield self.create_response('', '', user_input, ' Thinking...')
+
 
                     # Check if there's a result from the command append it to the message
                     # history
