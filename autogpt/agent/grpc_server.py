@@ -15,6 +15,7 @@
 from concurrent.futures import ThreadPoolExecutor
 import json
 import re
+import time
 import threading
 from typing import Iterable
 from autogpt.commands.command import CommandRegistry
@@ -304,6 +305,7 @@ class Message(message_pb2_grpc.AutogptServicer):
                             except Exception as e:
                                 logger.error("Error: \n", str(e))
                         yield self.create_response('', result, user_input, nextAction)
+                        time.sleep(2)
                         yield self.create_response('', '', user_input, 'Thinking...')
 
 
