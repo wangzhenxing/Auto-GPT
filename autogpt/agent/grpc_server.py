@@ -311,7 +311,7 @@ class Message(message_pb2_grpc.AutogptServicer):
                                     "text:",
                                     arguments["text"],
                                 )
-                                returnResult = arguments["text"]
+                                returnResult = arguments.get("text")
                             except Exception as e:
                                 logger.error("Error: \n", str(e))
                         yield self.create_response('', returnResult, user_input, nextAction)
