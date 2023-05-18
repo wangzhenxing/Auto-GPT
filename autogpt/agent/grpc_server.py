@@ -291,7 +291,7 @@ class Message(message_pb2_grpc.AutogptServicer):
                         and "Error:" not in result :
 
                         nextAction = ""
-                        returnResult = ""
+                        returnResult = result
                         if command_name == 'task_complete':
                             nextAction = "task_complete"
                         if command_name == 'write_to_file':
@@ -300,8 +300,8 @@ class Message(message_pb2_grpc.AutogptServicer):
                             try:
                                 logger.typewriter_log(
                                     'arguments:',
-                                    "filename:" + arguments["filename"],
-                                    "text:" + arguments["text"],
+                                    arguments["filename"],
+                                    arguments["text"],
                                 )
                                 returnResult = arguments["text"]
                             except Exception as e:
