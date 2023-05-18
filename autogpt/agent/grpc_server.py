@@ -119,7 +119,7 @@ class Message(message_pb2_grpc.AutogptServicer):
             ## 返回结果给客户端
             j = 1
             for goal in goals:
-                yield self.create_response('', '目标' + str(j) + '：' + goal, user_input, '')
+                yield self.create_response('', '', user_input, '目标' + str(j) + '：' + goal)
                 j += 1
             yield self.create_response('', '', user_input, 'Thinking...')
 
