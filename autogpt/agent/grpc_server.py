@@ -289,20 +289,24 @@ class Message(message_pb2_grpc.AutogptServicer):
                         and command_name != "delete_file" \
                         and "No such file or directory" not in result \
                         and "Error:" not in result :
+
                         nextAction = ""
+                        returnResult = ""
                         if command_name == 'task_complete':
                             nextAction = "task_complete"
                         if command_name == 'write_to_file':
                             print(arguments)
+                            print("")
                             try:
                                 logger.typewriter_log(
-                                    arguments["filename"],
-                                    arguments["text"],
+                                    'arguments:',
+                                    "filename:" + arguments["filename"],
+                                    "text:" + arguments["text"],
                                 )
-                                result = arguments["text"]
+                                returnResult = arguments["text"]
                             except Exception as e:
                                 logger.error("Error: \n", str(e))
-                        yield self.create_response('', result, user_input, nextAction)
+                        yield self.create_response('', returnResult, user_input, nextAction)
                         time.sleep(2)
                         yield self.create_response('', '', user_input, 'Thinking...')
 
