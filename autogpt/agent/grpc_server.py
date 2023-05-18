@@ -70,6 +70,7 @@ class Message(message_pb2_grpc.AutogptServicer):
             i=1
             for goal in request.ai_info.goals:
                 goals.append(goal)
+                yield self.create_response('', '目标：' + goal, user_input, '')
                 logger.typewriter_log(
                     "Received a request:  goal", Fore.YELLOW, f"{i}:{goal}"
                 )
