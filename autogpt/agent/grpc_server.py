@@ -292,7 +292,8 @@ class Message(message_pb2_grpc.AutogptServicer):
                     self.memory.add(memory_to_add)
                     ## 返回结果给客户端
                     if command_name != "analyze_code" \
-                        and "No such file or directory" not in result:
+                        and "No such file or directory" not in result \
+                        and "Error:" not in result :
                         nextAction = ""
                         if command_name == 'task_complete':
                             nextAction = "task_complete"
