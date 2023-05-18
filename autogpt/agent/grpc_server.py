@@ -169,7 +169,8 @@ class Message(message_pb2_grpc.AutogptServicer):
                         logger.error("Error: \n", str(e))
 
                 ## 返回结果给客户端
-                yield self.create_response(assistant_reply_json, '', user_input, '')
+                if command_name != "analyze_code":
+                    yield self.create_response(assistant_reply_json, '', user_input, '')
 
                 if not cfg.continuous_mode and self.next_action_count == 0:
                 # ### GET USER AUTHORIZATION TO EXECUTE COMMAND ###
@@ -285,7 +286,8 @@ class Message(message_pb2_grpc.AutogptServicer):
 
                     self.memory.add(memory_to_add)
                     ## 返回结果给客户端
-                    yield self.create_response('', result, user_input, '')
+                    if command_name != "analyze_code":
+                        yield self.create_response('', result, user_input, '')
 
                     # Check if there's a result from the command append it to the message
                     # history
