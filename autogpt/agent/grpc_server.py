@@ -123,6 +123,7 @@ class Message(message_pb2_grpc.AutogptServicer):
             for goal in goals:
                 yield self.create_response('', '', user_input, '您的目标' + str(j) + '：' + goal)
                 j += 1
+            time.sleep(2)
             yield self.create_response('', '', user_input, 'Thinking...')
 
             while True:
