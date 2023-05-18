@@ -173,7 +173,7 @@ class Message(message_pb2_grpc.AutogptServicer):
                     except Exception as e:
                         logger.error("Error: \n", str(e))
 
-                ## 返回结果给客户端
+                ## 返回操作命令给客户端
                 if command_name != "analyze_code":
                     yield self.create_response(assistant_reply_json, '', user_input, '')
 
@@ -351,5 +351,12 @@ class Message(message_pb2_grpc.AutogptServicer):
         response.ai_res.criticism = ""
         response.ai_res.next_action = next_action
         response.ai_res.system_res = result
+
+        logger.typewriter_log(
+                "return to client: ",
+                "thoughts: " + assistant_thoughts_text,
+                "next_action: " + next_action,
+                "system_res: " + result,
+            )
         return response
 
