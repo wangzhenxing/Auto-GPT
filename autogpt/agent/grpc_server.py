@@ -119,9 +119,9 @@ class Message(message_pb2_grpc.AutogptServicer):
             ## 返回结果给客户端
             j = 1
             for goal in goals:
-                yield self.create_response('', '', user_input, '目标' + str(j) + '：' + goal)
+                yield self.create_response('', '', user_input, ' 您的目标' + str(j) + '：' + goal)
                 j += 1
-            yield self.create_response('', '', user_input, 'Thinking...')
+            yield self.create_response('', '', user_input, ' Thinking...')
 
             while True:
                 # Discontinue if continuous limit is reached
@@ -295,7 +295,7 @@ class Message(message_pb2_grpc.AutogptServicer):
                         and "No such file or directory" not in result:
                         yield self.create_response('', result, user_input, '')
                         ## 返回结果给客户端
-                        yield self.create_response('', '', user_input, 'Thinking...')
+                        yield self.create_response('', '', user_input, ' Thinking...')
 
                     # Check if there's a result from the command append it to the message
                     # history
