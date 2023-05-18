@@ -297,6 +297,8 @@ class Message(message_pb2_grpc.AutogptServicer):
                                     arguments,
                                     arguments["filename"],
                                     arguments["text"],
+                                )
+                                logger.typewriter_log(
                                     arguments.values(),
                                     *arguments.values(),
                                 )
