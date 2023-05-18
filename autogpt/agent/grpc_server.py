@@ -288,6 +288,7 @@ class Message(message_pb2_grpc.AutogptServicer):
                     ## 返回结果给客户端
                     if command_name != "analyze_code" \
                         and command_name != "delete_file" \
+                        and command_name != "read_file" \
                         and "No such file or directory" not in result \
                         and "Error:" not in result :
 
