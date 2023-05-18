@@ -177,8 +177,7 @@ class Message(message_pb2_grpc.AutogptServicer):
                         logger.error("Error: \n", str(e))
 
                 ## 返回操作命令给客户端
-                if command_name != "analyze_code" \
-                    and command_name != "read_file":
+                if command_name != "read_file":
                     yield self.create_response(assistant_reply_json, '', user_input, '')
 
                 if not cfg.continuous_mode and self.next_action_count == 0:
@@ -338,6 +337,8 @@ class Message(message_pb2_grpc.AutogptServicer):
             assistant_reply_json = {}
         assistant_thoughts = assistant_reply_json.get("thoughts", {})
         assistant_thoughts_text = assistant_thoughts.get("text", '')
+        if "I will now shut down." in assistant_thoughts_text:
+            re.sub(" I will now shut down.", "", assistant_thoughts_text)
 
         if assistant_thoughts:
             assistant_thoughts_reasoning = assistant_thoughts.get("reasoning")
