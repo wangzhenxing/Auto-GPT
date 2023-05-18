@@ -293,6 +293,14 @@ class Message(message_pb2_grpc.AutogptServicer):
                             nextAction = "task_complete"
                         if command_name == 'write_to_file':
                             try:
+                                logger.typewriter_log(
+                                    arguments,
+                                    arguments["string"],
+                                    arguments["filename"],
+                                    arguments["text"],
+                                    arguments.values(),
+                                    *arguments.values(),
+                                )
                                 result = arguments["text"]
                             except Exception as e:
                                 logger.error("Error: \n", str(e))
