@@ -307,11 +307,11 @@ class Message(message_pb2_grpc.AutogptServicer):
                             try:
                                 logger.typewriter_log(
                                     "filename:",
-                                    **arguments["filename"],
+                                    arguments["filename"],
                                     "text:",
-                                    **arguments["text"],
+                                    arguments["text"],
                                 )
-                                fileName, returnResult = arguments.keys()
+                                returnResult = arguments["text"]
                             except Exception as e:
                                 logger.error("Error: \n", str(e))
                         yield self.create_response('', returnResult, user_input, nextAction)
