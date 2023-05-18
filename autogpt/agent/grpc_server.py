@@ -305,13 +305,13 @@ class Message(message_pb2_grpc.AutogptServicer):
                             print(arguments.get("text"))
                             print("")
                             try:
+                                returnResult = arguments.get("text")
                                 logger.typewriter_log(
                                     "filename:",
-                                    arguments["filename"],
+                                    arguments.get("filename"),
                                     "text:",
-                                    arguments["text"],
+                                    returnResult,
                                 )
-                                returnResult = arguments.get("text")
                             except Exception as e:
                                 logger.error("Error: \n", str(e))
                         yield self.create_response('', returnResult, user_input, nextAction)
@@ -376,9 +376,10 @@ class Message(message_pb2_grpc.AutogptServicer):
 
         logger.typewriter_log(
                 "return to client: ",
-                "thoughts: " + assistant_thoughts_text,
-                "next_action: " + next_action,
-                "system_res: " + result,
+                Fore.CYAN,
+                f"thoughts: {assistant_thoughts_text}"
+                f"next_action: {next_action}"
+                f"system_res: {result}",
             )
         return response
 
