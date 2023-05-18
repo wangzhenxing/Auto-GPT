@@ -293,7 +293,11 @@ class Message(message_pb2_grpc.AutogptServicer):
                     ## 返回结果给客户端
                     if command_name != "analyze_code" \
                         and "No such file or directory" not in result:
-                        yield self.create_response('', result, user_input, '')
+                        if command_name == 'task_complete':
+                            yield self.create_response('', result, user_input, 'task_complete')
+                        else:
+                            yield self.create_response('', result, user_input, '')
+
                         ## 返回结果给客户端
                         yield self.create_response('', '', user_input, ' Thinking...')
 
