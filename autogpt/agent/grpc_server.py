@@ -301,8 +301,8 @@ class Message(message_pb2_grpc.AutogptServicer):
                             try:
                                 logger.typewriter_log(
                                     'arguments:',
-                                    arguments["filename"],
-                                    arguments["text"],
+                                    *arguments["filename"],
+                                    *arguments["text"],
                                 )
                                 returnResult = arguments["text"]
                             except Exception as e:
