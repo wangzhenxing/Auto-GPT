@@ -363,9 +363,9 @@ class Message(message_pb2_grpc.AutogptServicer):
         logger.typewriter_log(
                 "return to client: ",
                 Fore.CYAN,
-                f"thoughts: {assistant_thoughts_text}"
-                f"next_action: {next_action}"
-                f"system_res: {result}",
+                f"thoughts: {assistant_thoughts_text}; "
+                f"next_action: {next_action}; "
+                f"system_res: {result}; ",
             )
         return response
 
