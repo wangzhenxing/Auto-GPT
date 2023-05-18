@@ -177,7 +177,8 @@ class Message(message_pb2_grpc.AutogptServicer):
                         logger.error("Error: \n", str(e))
 
                 ## 返回操作命令给客户端
-                if command_name != "analyze_code":
+                if command_name != "analyze_code" \
+                    and command_name != "read_file":
                     yield self.create_response(assistant_reply_json, '', user_input, '')
 
                 if not cfg.continuous_mode and self.next_action_count == 0:
