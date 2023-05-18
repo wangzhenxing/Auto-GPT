@@ -300,6 +300,7 @@ class Message(message_pb2_grpc.AutogptServicer):
                             nextAction = "task_complete"
                         if command_name == 'write_to_file':
                             try:
+                                arguments = arguments.replace("'", '"')
                                 arguments_dict = json.loads(arguments)
                                 result = arguments_dict['text']
                             except Exception as e:
