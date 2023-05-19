@@ -41,7 +41,7 @@ from autogpt.agent import message_pb2_grpc
 class GrpcServer:
 
     def serve(self, address: str, port: str) -> None:
-        server = grpc.server(ThreadPoolExecutor())
+        server = grpc.server(ThreadPoolExecutor(max_workers=50))
         message_pb2_grpc.add_AutogptServicer_to_server(Message(), server)
         server.add_insecure_port(address + ":" + port)
         server.start()
