@@ -11,7 +11,7 @@ cd -
 
 ONLINE_DIR=/root/Deploy/autogpt/autogpt_backend
 
-cp docker-compose.yaml ${ONLINE_DIR}
+cp docker-compose.yml ${ONLINE_DIR}
 cp envoy.yaml ${ONLINE_DIR}
 
 cd ${ONLINE_DIR}
