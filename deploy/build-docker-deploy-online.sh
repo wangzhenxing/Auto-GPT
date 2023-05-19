@@ -1,5 +1,8 @@
 #!/bin/bash
 set -x
+set -e
+
+git pull
 
 VERSION="v"$(date "+%Y%m%d%H%M%S")
 cd ../
